@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import M from "materialize-css/dist/js/materialize.min.js";
 
-const AddLogModal = () => {
+const AddTechModal = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
 
@@ -31,7 +31,7 @@ const AddLogModal = () => {
               value={firstName}
               onChange={e => setFirstName(e.target.value)}
             />
-            <label htmlFor="firstName" className="active">
+            <label htmlFor="firstName" className="active"> {/* The labels basically are the text inside of the inputs before someone types */}
               First Name
             </label>{" "}
             {/* In materialize, you add this after your input */}
@@ -51,25 +51,6 @@ const AddLogModal = () => {
             </label>{" "}
           </div>
         </div>
-
-        <div className="row">
-          <div className="input-field">
-            <p>
-              <label>
-                {" "}
-                {/*Leaving htmlFor will break the checkbox*/}
-                <input
-                  type="checkbox"
-                  className="filled-in"
-                  checked={attention}
-                  value={attention}
-                  onChange={e => setAttention(!attention)} //If its true when they check it, we want it to be false
-                />
-                <span>Needs Attention</span>
-              </label>
-            </p>
-          </div>
-        </div>
       </div>
       <div className="modal-footer">
         <a
@@ -84,4 +65,4 @@ const AddLogModal = () => {
   );
 };
 
-export default AddLogModal;
+export default AddTechModal;
