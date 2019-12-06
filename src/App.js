@@ -5,10 +5,12 @@ import "./App.css";
 import Searchbar from "./components/layout/Searchbar";
 import Logs from "./components/logs/Logs";
 import AddBtn from "./components/layout/AddBtn";
-import AddLogModal from './components/layout/AddLogModal';
-import EditLogModal from './components/layout/EditLogModal';
-import AddTechModal from './components/layout/tech/AddTechModal';
-import TechListModal from './components/layout/tech/TechListModal';
+import AddLogModal from "./components/layout/AddLogModal";
+import EditLogModal from "./components/layout/EditLogModal";
+import AddTechModal from "./components/layout/tech/AddTechModal";
+import TechListModal from "./components/layout/tech/TechListModal";
+import { Provider } from "react-redux"; //This is responsible for connecting react and redux together
+import store from "./store";
 
 const App = () => {
   useEffect(() => {
@@ -16,17 +18,19 @@ const App = () => {
   });
 
   return (
-    <Fragment>
-      <Searchbar />
-      <div className="container">
-        <AddBtn />
-        <AddLogModal/>
-        <AddTechModal/>
-        <EditLogModal/>
-        <TechListModal/> 
-        <Logs />
-      </div>
-    </Fragment>
+    <Provider store={store}>
+      <Fragment>
+        <Searchbar />
+        <div className="container">
+          <AddBtn />
+          <AddLogModal />
+          <AddTechModal />
+          <EditLogModal />
+          <TechListModal />
+          <Logs />
+        </div>
+      </Fragment>
+    </Provider>
   );
 };
 
