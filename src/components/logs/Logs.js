@@ -1,26 +1,21 @@
 import React, { useState, useEffect } from "react";
 import LogItems from "./LogItems";
 import Preloader from "../layout/Preloader";
+import { connect } from "react-redux"; //This is needed to connect components to redux. See the export below.
+import PropTypes from 'prop-types';
+import {getLogs} from '../../actions/logActions'
 
-const Logs = () => {
-  const [logs, setLogs] = useState([]);
-  const [loading, setLoading] = useState(false);
+
+const Logs = ({ log: { logs, loading } }) => {//We destructured from the logstate. This is the entire state
 
   useEffect(() => {
     getLogs();
     //eslint-disable-next-line
   }, []); //The empty brackets here means that it will only run once.
 
-  const getLogs = async () => {
-    setLoading(true);
-    const res = await fetch("/logs"); //No need for localhost:5000 here due to the proxy in package.json
-    const data = await res.json();
 
-    setLogs(data);
-    setLoading(false);
-  };
 
-  if (loading) {
+  if (loading || logs === null) {
     return <Preloader />;
   }
 
@@ -38,4 +33,16 @@ const Logs = () => {
   );
 };
 
-export default Logs;
+Logs.propTypes = {
+  log: PropTypes.object.isRequired
+}
+
+const mapStateToProps = state => ({
+  log: state.log //log = anyname. state.log pertains to the root reducer in index.js
+  //could also do
+  //loading: state.log.loading
+});
+
+export default connect(mapStateToProps, {getLogs})(Logs); //When you are using connect, you need to add it here as seen and place the
+// name of the component into parenthesees
+//We also add an object of any actions that we are going to run
