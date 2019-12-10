@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import {getLogs} from '../../actions/logActions'
 
 
-const Logs = ({ log: { logs, loading } }) => {//We destructured from the logstate. This is the entire state
+const Logs = ({ log: { logs, loading }, getLogs }) => {//We destructured from the logstate. This is the entire state
 
   useEffect(() => {
     getLogs();
@@ -46,3 +46,4 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps, {getLogs})(Logs); //When you are using connect, you need to add it here as seen and place the
 // name of the component into parenthesees
 //We also add an object of any actions that we are going to run
+//If you add the object/action here, it becomes a prop that needs to be destructured above.
