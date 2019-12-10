@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import LogItems from "./LogItems";
 import Preloader from "../layout/Preloader";
 import { connect } from "react-redux"; //This is needed to connect components to redux. See the export below.
@@ -34,12 +34,13 @@ const Logs = ({ log: { logs, loading }, getLogs }) => {//We destructured from th
 };
 
 Logs.propTypes = {
-  log: PropTypes.object.isRequired
+  log: PropTypes.object.isRequired,
+  getLogs: PropTypes.func.isRequired //It's a function
 }
 
 const mapStateToProps = state => ({
   log: state.log //log = anyname. state.log pertains to the root reducer in index.js
-  //could also do
+  //could also do:
   //loading: state.log.loading
 });
 
