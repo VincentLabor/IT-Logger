@@ -1,4 +1,10 @@
-import { GET_LOGS, SET_LOADING, LOGS_ERROR, ADD_LOG } from "./types";
+import {
+  GET_LOGS,
+  SET_LOADING,
+  LOGS_ERROR,
+  ADD_LOG,
+  DELETE_LOG
+} from "./types";
 
 export const getLogs = () => async dispatch => {
   try {
@@ -20,7 +26,8 @@ export const getLogs = () => async dispatch => {
 };
 
 //Add new logs
-export const addLog = (log) => async dispatch => { //Since this is a post request, we add the following: 
+export const addLog = log => async dispatch => {
+  //Since this is a post request, we add the following:
   try {
     setLoading();
 
@@ -28,21 +35,40 @@ export const addLog = (log) => async dispatch => { //Since this is a post reques
       method: "POST", //This is the HTTP type
       body: JSON.stringify(log),
       headers: {
-        'Content-Type': "application/json"
+        "Content-Type": "application/json"
       }
     });
 
-
     const data = await res.json();
-
 
     dispatch({
       type: ADD_LOG,
       payload: data
     });
-    
   } catch (error) {
-    console.log(error)
+    console.log(error);
+    dispatch({
+      type: LOGS_ERROR,
+      payload: error.response.data
+    });
+  }
+};
+
+//DELETE log from server
+export const deleteLog = id => async dispatch => {
+  //We take in Id because we want to delete the specific log with the correlating id
+  try {
+    setLoading();
+
+    await fetch(`/logs/${id}`, {
+      method: "DELETE"
+    });
+
+    dispatch({
+      type: DELETE_LOG,
+      payload: id
+    });
+  } catch (error) {
     dispatch({
       type: LOGS_ERROR,
       payload: error.response.data

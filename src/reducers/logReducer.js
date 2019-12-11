@@ -2,8 +2,9 @@ import {
   GET_LOGS,
   SET_LOADING,
   LOGS_ERROR,
-  ADD_LOG
-} from '../actions/types'
+  ADD_LOG,
+  DELETE_LOG
+} from "../actions/types";
 
 const initialState = {
   //The initial state is created within the reducer. There is no state file like context
@@ -24,8 +25,13 @@ export default (state = initialState, action) => {
     case ADD_LOG:
       return {
         ...state,
-        logs: [...state.logs,action.payload], //immute state so we spread the array and add the log to the array
+        logs: [...state.logs, action.payload], //immute state so we spread the array and add the log to the array
         loading: false
+      };
+    case DELETE_LOG:
+      return {
+        ...state,
+        logs: state.logs.filter(log => log.id !== action.payload) //This will remove 
       };
     case LOGS_ERROR:
       console.log(action.payload);
