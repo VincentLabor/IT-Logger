@@ -19,7 +19,7 @@ const Searchbar = ({ searchLogs }) => {
               id="search"
               type="search"
               placeholder="Search for logs..."
-              ref={text}
+              ref={text} //This input node has a ref 
               onChange={onChange}
             />
             <label className="label-icon" htmlFor="search">
